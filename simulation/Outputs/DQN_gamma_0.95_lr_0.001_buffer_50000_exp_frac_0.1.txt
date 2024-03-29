@@ -1,3 +1,5 @@
+DQN_gamma_0.95_lr_0.001_buffer_50000_exp_frac_0.1.txt
+
 755.3684516269975 at timestep 0
 761.3375092507227 at timestep 1
 752.6395242930089 at timestep 2
