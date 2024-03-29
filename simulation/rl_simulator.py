@@ -10,6 +10,7 @@ from simulation.gang_scheduling.resource_configurer import ResourceConfigurer
 from simulation.shared.workloads import WORKLOADS
 from simulation.forecaster.lstm_forecaster import get_actual_dict, get_predictions_dict
 
+
 def main() -> None:
     predictions: Dict[str, float] = get_predictions_dict(WORKLOADS)
     actual: Dict[str, float] = get_actual_dict(WORKLOADS)
@@ -51,7 +52,7 @@ def main() -> None:
     )
 
     # Redirect standard output to a file
-    with open("Outputs/DQN_gamma_0.95_lr_0.001_buffer_50000_exp_frac_0.1.txt", "w") as f:
+    with open("Outputs/DQN_gamma_0.99_lr_0.0005_buffer_100000_exp_frac_0.3.txt", "w") as f:
         # Use context manager to ensure file is properly closed
         import sys
         original_stdout = sys.stdout  # Save original stdout

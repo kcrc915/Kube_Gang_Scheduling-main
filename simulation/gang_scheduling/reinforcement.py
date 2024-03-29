@@ -18,7 +18,7 @@ from simulation.config.config import (
 
 MODEL_PATH: str = f"{SIMULATION_DIR}/gang_scheduling/models"
 A2C_PATH: str = f"{MODEL_PATH}/A2C_MlpPolicy_scaled"
-DQN_PATH: str = f"{MODEL_PATH}/DQN_gamma_0.95_lr_0.001_buffer_50000_exp_frac_0.1"
+DQN_PATH: str = f"{MODEL_PATH}/DQN_gamma_0.99_lr_0.0005_buffer_100000_exp_frac_0.3"
 
 class SimulatorEnv(Env):
     def __init__(self,
