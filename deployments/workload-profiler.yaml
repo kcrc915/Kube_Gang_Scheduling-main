@@ -1,0 +1,31 @@
+--- 
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: workload-profiler
+  labels:
+    name: workload-profiler
+spec:
+  template:
+    spec:
+      volumes:
+      - name: workload-profiler-pv
+        persistentVolumeClaim:
+          claimName: persistent-volumeclaim
+      containers:
+      - name: workload-profiler
+        image: evanw1999/workload-profiler:public
+        imagePullPolicy: Always
+        volumeMounts:
+          - mountPath: "/user/home/simulation/workload_profiler/results/"
+            name: workload-profiler-pv
+        env: 
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: PYTHONPATH
+          value: "/user/home"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      restartPolicy: Never
