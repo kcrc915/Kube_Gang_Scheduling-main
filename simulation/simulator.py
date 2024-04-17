@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from kazoo.client import KazooClient
 from kazoo.recipe.queue import LockingQueue
 from kazoo.recipe.barrier import DoubleBarrier
-import os
+
 import sys
 from pathlib import Path
 
@@ -289,6 +289,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-
     main()
     #generate_onetime_simulation()

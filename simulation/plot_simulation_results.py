@@ -15,10 +15,10 @@ def plot_results(file_name: str, title: str) -> None:
 
 
 def main() -> None:
-    plot_results("C:/Users/k164c194/Desktop/MyProject1/Kube_Gang_Scheduling-main/simulation/gang_scheduling/simulations/actual_400_results.csv",
-                 "Simulation Results with Perfect Predictions")
-    plot_results("C:/Users/k164c194/Desktop/MyProject1/Kube_Gang_Scheduling-main/simulation/gang_scheduling/simulations/forecast_400_results.csv",
-                 "Simulation Results with Forecasts")
+    plot_results("C:/Users/k164c194/Desktop/MyProject1/Kube_Gang_Scheduling-main/simulation/Outputs/forecast_results_with_RL.csv",
+                 "Simulation Results with forecasts")
+    #plot_results("C:/Users/k164c194/Desktop/MyProject1/Kube_Gang_Scheduling-main/simulation/Outputs/forecast _results.csv",
+                 #"Simulation Results with Forecasts")
 
 if __name__ == "__main__":
     main()

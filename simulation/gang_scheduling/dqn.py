@@ -1,9 +1,5 @@
-import gym
-
-
 from gym import Env
 import keras
-import keras.backend as K
 from keras.models import Sequential
 from keras.layers import Flatten, Dense
 from keras.optimizers import Adam
@@ -15,9 +11,9 @@ from rl.memory import SequentialMemory
 def agent(states, actions):
     model = Sequential()
     model.add(Flatten(input_shape=(1, ) + states))
-    model.add(Dense(48, activation='relu'))
-    model.add(Dense(48, activation='relu'))
-    model.add(Dense(48, activation='relu'))
+    model.add(Dense(24, activation='relu'))
+    model.add(Dense(24, activation='relu'))
+    model.add(Dense(24, activation='relu'))
     model.add(Dense(actions, activation='linear'))
     return model
 
@@ -37,7 +33,6 @@ def train_keras_dqn(env: Env) -> None:
     states = env.observation_space.shape
     print(states)
     actions = env.action_space.n
-    print(actions)
     keras.backend.clear_session()
     model: Sequential = agent(states, actions)
     for _ in range(30):
@@ -47,15 +42,3 @@ def train_keras_dqn(env: Env) -> None:
     dqn.fit(env, nb_steps=100000, visualize=False, verbose=1)
     dqn.save_weights("boltzman_dqn_w2_a3.h5f", overwrite=True)
     dqn.load_weights("weights.h5f")
-
-
-def main():
-    # Create the Gym environment
-    env = gym.make('CartPole-v1')
-    # Train the DQN agent
-    train_keras_dqn(env)
-
-if __name__ == "__main__":
-    main()
-
-

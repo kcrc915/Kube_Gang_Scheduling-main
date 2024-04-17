@@ -2,7 +2,6 @@ from simulation.simulator import MPCSimulator
 from simulation.gang_scheduling.mpc import ReinforcementMPController
 from typing import Dict
 from stable_baselines3 import DQN
-import numpy as np
 from simulation.config.config import (GANG_SCHEDULING_SIMULATION_LENGTH,
                                       GANG_SCHEDULING_WINDOW_SIZE, ZOOKEEPER_BARRIER_PATH, ZOOKEEPER_CLIENT_ENDPOINT)
 from simulation.gang_scheduling.reinforcement import SimulatorEnv, A2C_PATH, DQN_PATH
@@ -24,11 +23,10 @@ def main() -> None:
         default_reward=100,
         default_time_step=0,
         workloads=WORKLOADS,
-        actual_workload_sizes=actual,
         num_actions=4,
         duration_low=75,
-        duration_high=150
-
+        duration_high=150,
+        actual_workload_sizes=actual
     )
     env.reset()
     model = DQN.load(DQN_PATH)
@@ -50,18 +48,8 @@ def main() -> None:
         zookeeper_barrier_path=ZOOKEEPER_BARRIER_PATH,
         real_simulation=False
     )
+    simulator.simulate()
 
-    # Redirect standard output to a file
-    with open("Outputs/DQN_gamma_0.99_lr_0.0005_buffer_100000_exp_frac_0.3.txt", "w") as f:
-        # Use context manager to ensure file is properly closed
-        import sys
-        original_stdout = sys.stdout  # Save original stdout
-        sys.stdout = f  # Redirect stdout to file
-
-        simulator.simulate()  # Perform simulation
-
-        # Restore original stdout
-        sys.stdout = original_stdout
 
 if __name__ == "__main__":
     main()
