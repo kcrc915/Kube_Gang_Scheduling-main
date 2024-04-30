@@ -1,0 +1,4 @@
+checkpoint penalty, duration without checkpointing, number of checkpoints, total duration with checkpointing
+5, 40205.08099072284, 366, 43865.08099072284
+10, 41379.69168948355, 215, 43529.69168948355
+15, 42451.89600504681, 155, 44776.89600504681

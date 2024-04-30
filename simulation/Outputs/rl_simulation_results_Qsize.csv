@@ -1,4 +1,4 @@
 QTable_size,Duration without checkpointing penalty,Number of Checkpoints,Duration with Checkpointing penalty
-window_size 6 &num_actions 4, 42451.89600504681, 154, 44776.89600504681
+window_size 6 &num_actions 4, 42451.89600504681, 155, 44776.89600504681
 window_size 5 &num_actions 3, 42342.68431833491, 151, 44607.68431833491
 window_size 8 &num_actions 6, 42539.618873786116, 159, 44924.618873786116
