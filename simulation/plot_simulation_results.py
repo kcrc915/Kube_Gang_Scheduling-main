@@ -15,7 +15,7 @@ def plot_results(file_name: str, title: str) -> None:
 
 
 def main() -> None:
-    plot_results("C:/Users/k164c194/Desktop/MyProject1/Kube_Gang_Scheduling-main/simulation/Outputs/forecast_results_with_RL.csv",
+    plot_results("/simulation/Outputs_May1/forecast_results_with_RL.csv",
                  "Simulation Results with forecasts")
     #plot_results("C:/Users/k164c194/Desktop/MyProject1/Kube_Gang_Scheduling-main/simulation/Outputs/forecast _results.csv",
                  #"Simulation Results with Forecasts")
