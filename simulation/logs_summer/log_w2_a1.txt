@@ -1,0 +1,40 @@
+INFO:root:Training start for window_size: 2, num_actions: 1
+INFO:root:Start time: 2024-06-16 00:41:27.049206
+INFO:root:End time: 2024-06-16 00:43:12.350556
+INFO:root:Training end for window_size: 2, num_actions: 1
+INFO:root:Training start for window_size: 2, num_actions: 2
+INFO:root:Start time: 2024-06-16 00:43:12.351556
+INFO:root:End time: 2024-06-16 01:06:14.178907
+INFO:root:Training end for window_size: 2, num_actions: 2
+INFO:root:Training start for window_size: 2, num_actions: 3
+INFO:root:Start time: 2024-06-16 01:06:14.179907
+INFO:root:End time: 2024-06-16 01:54:34.014866
+INFO:root:Training end for window_size: 2, num_actions: 3
+INFO:root:Training start for window_size: 2, num_actions: 4
+INFO:root:Start time: 2024-06-16 01:54:34.014866
+INFO:root:End time: 2024-06-16 03:22:06.641608
+INFO:root:Training end for window_size: 2, num_actions: 4
+INFO:root:Training start for window_size: 2, num_actions: 5
+INFO:root:Start time: 2024-06-16 03:22:06.641608
+INFO:root:End time: 2024-06-16 05:42:09.039375
+INFO:root:Training end for window_size: 2, num_actions: 5
+INFO:root:Training start for window_size: 2, num_actions: 6
+INFO:root:Start time: 2024-06-16 05:42:09.040416
+INFO:root:End time: 2024-06-16 08:56:46.682960
+INFO:root:Training end for window_size: 2, num_actions: 6
+INFO:root:Training start for window_size: 2, num_actions: 7
+INFO:root:Start time: 2024-06-16 08:56:46.682960
+INFO:root:End time: 2024-06-16 13:50:06.499908
+INFO:root:Training end for window_size: 2, num_actions: 7
+INFO:root:Training start for window_size: 2, num_actions: 8
+INFO:root:Start time: 2024-06-16 13:50:06.501953
+INFO:root:End time: 2024-06-16 17:44:28.371378
+INFO:root:Training end for window_size: 2, num_actions: 8
+INFO:root:Training start for window_size: 2, num_actions: 9
+INFO:root:Start time: 2024-06-16 17:44:28.371378
+INFO:root:End time: 2024-06-16 21:55:54.255852
+INFO:root:Training end for window_size: 2, num_actions: 9
+INFO:root:Training start for window_size: 2, num_actions: 10
+INFO:root:Start time: 2024-06-16 21:55:54.255852
+INFO:root:End time: 2024-06-17 03:03:35.864676
+INFO:root:Training end for window_size: 2, num_actions: 10
