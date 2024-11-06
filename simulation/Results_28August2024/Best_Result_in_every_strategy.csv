@@ -1,6 +1,0 @@
-Strategy,Total time taken before checkpointing,number of checkpoints,Total time taken with checkpointing
-EXXPO,65126.48344,0,65126.48344
-Static Window(3),47880.17876,133,49875.17876
-Dynamic Window(7),48107.22213,180,49331.26754
-Dynamic MPC(3),46631.26754,180,49331.26754
-Reinforcement Learning(3*10),47133.03209,135,49158.03209
