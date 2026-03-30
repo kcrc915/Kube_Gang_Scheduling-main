@@ -6,8 +6,8 @@ from sklearn.metrics import mean_squared_error
 
 train_data = pd.read_csv("/content/StaticTestData.csv")
 
-train_data.columns = train_data.columns.str.strip()  # Remove leading/trailing spaces
-train_data.columns = train_data.columns.str.replace('\ufeff', '')  # Remove BOM
+train_data.columns = train_data.columns.str.strip()  
+train_data.columns = train_data.columns.str.replace('\ufeff', '')  
 
 train_data = train_data.dropna()
 
