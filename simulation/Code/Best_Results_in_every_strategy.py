@@ -7,7 +7,7 @@ data = pd.DataFrame({
     'Strategy': [
         "EXXPO",
         "Static Window(3)",
-        "Dynamic Window(7)",
+        "Dynamic Window(2)",
         "Dynamic MPC(3)",
         "Reinforcement Learning(3*10)"
     ],
