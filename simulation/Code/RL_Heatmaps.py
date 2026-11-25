@@ -97,6 +97,7 @@ for ax in axes:
 
 
 
+plt.savefig("RL_Strategy.pdf", bbox_inches="tight")
 
 
 plt.show()
