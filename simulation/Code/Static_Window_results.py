@@ -37,5 +37,6 @@ ax1.legend(all_labels, labels, loc='upper left', bbox_to_anchor=(1.15, 1), ncol=
 
 fig.tight_layout()
 plt.subplots_adjust(right=0.75)
+plt.savefig("Static_Window_Strategy.pdf", bbox_inches="tight")
 
 plt.show()
