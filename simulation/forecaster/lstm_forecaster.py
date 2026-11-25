@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import List, Tuple, Dict
 from math import sqrt
 import matplotlib.pyplot as plt
+import re
 
 
 import sys
@@ -29,15 +30,96 @@ STANDARD_SCALER: MinMaxScaler = MinMaxScaler(
 
 
 def plot_series_data() -> None:
+    output_dir = Path(PATH) / "figures"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    plt.rcParams.update({"pdf.fonttype": 42})
+
     for workload in WORKLOADS:
-        series_path: str = f"{PATH}/data/{workload.time_series.file_name}"
-        series_df: pandas.DataFrame = pandas.read_csv(
-            series_path, usecols=[workload.time_series.target_col], nrows=1500, dtype="float32")
+        series = workload.time_series
+        series_path = Path(PATH) / "data" / series.file_name
+
+        series_df = pandas.read_csv(
+            series_path,
+            usecols=[series.target_col],
+            nrows=1500,
+            dtype="float32",
+        )
+
+        # Preserve the original sampling and horizontal axis.
         series_df = series_df.iloc[::5]
-        series_df.reset_index().plot(
-            x="index", y=workload.time_series.target_col, figsize=(10, 5))
-        plt.savefig(
-            f"{PATH}/figures/{workload.time_series.file_name[:-4]}.png")
+
+        ax = series_df.reset_index().plot(
+            x="index",
+            y=series.target_col,
+            figsize=(10, 5),
+        )
+        ax.set_xlabel("Timestep")
+        
+        if series.file_name.startswith("nyc_taxi"):
+            ax.legend(["Number of Passengers"])
+            ax.set_title("NYC Taxi Data")
+        elif series.file_name.startswith("ambient"):
+            ax.legend(["Temperature (Fahrenheit)"])
+            ax.set_title("Ambient Temperature System Failure Data")
+        elif series.file_name.startswith("art"):
+            ax.legend(["Artificial Value"])
+            ax.set_title("Artificial Daily Small Noise")
+
+
+        fig = ax.get_figure()
+        fig.savefig(output_dir / f"{Path(series.file_name).stem}.pdf")
+        plt.close(fig)
+    
+        
+def plot_forecast_errors() -> None:
+    errors = {}
+    current_series = None
+
+    error_file = Path(PATH) / "evaluated_forecast.txt"
+
+    for line in error_file.read_text().splitlines():
+        line = line.strip()
+
+        if line.startswith("Forecasts for "):
+            current_series = line.replace("Forecasts for ", "")
+            current_series = Path(current_series).stem
+            errors[current_series] = []
+
+        else:
+            match = re.fullmatch(
+                r"t\+(\d+) Scaled RMSE:\s*([0-9.eE+-]+)",
+                line,
+            )
+            if match and current_series is not None:
+                horizon = int(match.group(1))
+                rmse = float(match.group(2))
+                errors[current_series].append((horizon, rmse))
+
+    plt.rcParams.update({"pdf.fonttype": 42})
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    for series_name, values in errors.items():
+        horizons, rmse_values = zip(*sorted(values))
+        ax.plot([h - 1 for h in horizons],rmse_values,label=series_name,)
+
+    ax.set_xlabel("Steps Predicted Ahead")
+    ax.set_ylabel("RMSE")
+    ax.set_xticks(range(0, 20, 2))
+    ax.set_yticks(range(2, 12, 2))
+
+    
+    ax.legend(fontsize=8)
+
+    output_dir = Path(PATH) / "figures"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    fig.tight_layout()
+    output_file = output_dir / "forecast_errors.pdf"
+    fig.savefig(output_file)
+    plt.close(fig)
+
+    print(f"Saved: {output_file}")
 
 
 def get_series_data(series_data: Series) -> pandas.DataFrame:
@@ -287,8 +369,10 @@ def get_actual_dict(workloads: List[Workload]) -> Dict[str, numpy.ndarray]:
 
 
 def main():
-    # plot_series_data()
-    forecast_workloads()
+    plot_series_data()
+    #forecast_workloads()
+    #plot_forecast_errors()
+
 
 
 if __name__ == "__main__":

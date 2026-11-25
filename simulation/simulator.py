@@ -13,7 +13,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 
 from simulation.gang_scheduling.resource_configurer import ResourceConfigurer, ConfigurationWindow
-from simulation.gang_scheduling.mpc import DynamicMPController, MPController, StaticMPController
+from simulation.gang_scheduling.mpc import DynamicMPController, MPController, StaticMPController, DynamicWindowController
 from simulation.forecaster.lstm_forecaster import get_actual_dict, get_predictions_dict
 from simulation.shared.workloads import WORKLOADS, Workload, get_env_vars
 from simulation.config.config import (GANG_SCHEDULING_CHECKPOINT_PENALTY, GANG_SCHEDULING_STARTING_SHARES, ZOOKEEPER_CLIENT_ENDPOINT,
@@ -251,41 +251,61 @@ def main() -> None:
         zookeeper_client_endpoint=ZOOKEEPER_CLIENT_ENDPOINT,
         zookeeper_barrier_path=ZOOKEEPER_BARRIER_PATH,
         real_simulation=False)
-    static_simulator.simulate()
-    for i in range(1, GANG_SCHEDULING_WINDOW_SIZE):
-        static_mpc: StaticMPController = StaticMPController(
-            resource_configurer=resource_configurer,
-            window_size=i,
-            simulation_length=GANG_SCHEDULING_SIMULATION_LENGTH
-        )
-        mpc_simulator: MPCSimulator = MPCSimulator(
-            mpc=static_mpc,
-            resource_configurer=resource_configurer,
-            workloads=WORKLOADS,
-            actual=predictions,
-            zookeeper_client_endpoint=ZOOKEEPER_CLIENT_ENDPOINT,
-            zookeeper_barrier_path=ZOOKEEPER_BARRIER_PATH,
-            real_simulation=False
-        )
-        print(f"Simulating simulation for static window of size {i}")
-        mpc_simulator.simulate()
+    #static_simulator.simulate()
+    # for i in range(1, GANG_SCHEDULING_WINDOW_SIZE):
+    #     static_mpc: StaticMPController = StaticMPController(
+    #         resource_configurer=resource_configurer,
+    #         window_size=i,
+    #         simulation_length=GANG_SCHEDULING_SIMULATION_LENGTH
+    #     )
+    #     mpc_simulator: MPCSimulator = MPCSimulator(
+    #         mpc=static_mpc,
+    #         resource_configurer=resource_configurer,
+    #         workloads=WORKLOADS,
+    #         actual=predictions,
+    #         zookeeper_client_endpoint=ZOOKEEPER_CLIENT_ENDPOINT,
+    #         zookeeper_barrier_path=ZOOKEEPER_BARRIER_PATH,
+    #         real_simulation=False
+    #     )
+    #     print(f"Simulating simulation for static window of size {i}")
+    #     mpc_simulator.simulate()
 
-    dynamic_mpc: MPController = DynamicMPController(
+    # dynamic_mpc: MPController = DynamicMPController(
+    #     resource_configurer=resource_configurer,
+    #     window_size=GANG_SCHEDULING_WINDOW_SIZE,
+    #     simulation_length=GANG_SCHEDULING_SIMULATION_LENGTH
+    # )
+    # mpc_simulator = MPCSimulator(
+    #     mpc=dynamic_mpc,
+    #     resource_configurer=resource_configurer,
+    #     workloads=WORKLOADS,
+    #     actual=actual,
+    #     zookeeper_client_endpoint=ZOOKEEPER_CLIENT_ENDPOINT,
+    #     zookeeper_barrier_path=ZOOKEEPER_BARRIER_PATH,
+    #     real_simulation=False
+    # )
+
+    # mpc_simulator.simulate()
+    
+    dynamic_window_mpc = DynamicWindowController(
         resource_configurer=resource_configurer,
-        window_size=GANG_SCHEDULING_WINDOW_SIZE,
-        simulation_length=GANG_SCHEDULING_SIMULATION_LENGTH
-    )
+        simulation_length=GANG_SCHEDULING_SIMULATION_LENGTH,
+        window_size=GANG_SCHEDULING_WINDOW_SIZE
+        )
     mpc_simulator = MPCSimulator(
-        mpc=dynamic_mpc,
+        mpc=dynamic_window_mpc,
         resource_configurer=resource_configurer,
         workloads=WORKLOADS,
-        actual=predictions,
+        actual=actual,
         zookeeper_client_endpoint=ZOOKEEPER_CLIENT_ENDPOINT,
         zookeeper_barrier_path=ZOOKEEPER_BARRIER_PATH,
         real_simulation=False
-    )
-
+        )
     mpc_simulator.simulate()
+    
+    
+    
+        
 
 
 if __name__ == "__main__":
